@@ -1,6 +1,6 @@
 # Microbiome simulation and quality-control demo
 
-This is a small, standalone Python demonstration of microbiome count-data simulation and quality checks. It grew out of questions I explored during the **BIOT670I Microbiome Abundance Consensus Machine** group capstone: before comparing statistical methods, how can we tell whether our input data and metadata are consistent?
+This is a small, standalone Python demonstration of microbiome count-data simulation and quality checks. It grew out of questions I explored during the **Microbiome Abundance Consensus Machine** group capstone: before comparing statistical methods, how can we tell whether our input data and metadata are consistent?
 
 In the broader team project, Python supported simulation, preparation, and organization of analysis files. R provided the packages used for ALDEx2, ANCOM-BC2, and DESeq2; CLR/Wilcoxon was also evaluated. **This portfolio example does not implement those four differential-abundance tests or reproduce the team's published/unpublished results.** It focuses on the validation work that precedes statistical testing.
 
