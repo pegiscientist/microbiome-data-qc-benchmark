@@ -45,7 +45,11 @@ The count-table, metadata, and null-truth integrity checks reported **PASS**. Th
 
 The 17.8% zero fraction and 100% median taxon prevalence indicate that many taxa are present across samples. This controlled example is useful for practicing QC but should not be treated as a realistic representation of highly sparse microbiome studies. The observed library sizes were close to the nominal mean of 10,000 reads.
 
-The QC plotting script saves `outputs/library_size_qc.png` when executed. That image is generated locally and is not currently committed to this repository; the README therefore does not display it as an existing repository figure.
+### Sequencing-depth distribution
+
+![Histogram of library sizes for synthetic microbiome samples](figures/library_size_qc.png)
+
+The histogram displays sequencing depth across 40 simulated samples. Library sizes ranged from 9,758 to 10,244 reads, with an average of 10,020.1 reads per sample. This relatively narrow distribution reflects the deliberately controlled simulation settings; real sequencing datasets can have much greater depth variation.
 
 These checks establish that the example ran and passed the implemented tests. They are **not** evidence of biological validity, statistical calibration, or performance of the four differential-abundance methods.
 
