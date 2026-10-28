@@ -26,7 +26,28 @@ python -m scripts.summarize_qc --input-dir outputs
 python -m unittest discover -s tests -v
 ```
 
-The commands write generated CSVs and a PNG to `outputs/`, which is git-ignored. The results are reproducible for the specified seed and dependency versions, but exact random outputs can vary across NumPy versions.
+The commands write three generated CSVs and a QC PNG to `outputs/`, which is git-ignored. The results are reproducible for the specified seed and dependency versions, but exact random outputs can vary across NumPy versions.
+
+## Results from a verification run
+
+I ran the workflow in Google Colab with seed `42` and checked its console output. The simulation, validation, and QC summary completed successfully.
+
+| QC measure | Observed result |
+| --- | ---: |
+| Samples | 40 |
+| Taxa | 60 |
+| Fraction of zero counts | 17.8% |
+| Median taxon prevalence | 100% |
+| Mean library size | 10,020.1 reads |
+| Library-size range | 9,758–10,244 reads |
+
+The count-table, metadata, and null-truth integrity checks reported **PASS**. The test suite completed **5 tests with 0 failures**, including checks designed to detect mismatched sample order and deliberately corrupted library-size metadata.
+
+The 17.8% zero fraction and 100% median taxon prevalence indicate that many taxa are present across samples. This controlled example is useful for practicing QC but should not be treated as a realistic representation of highly sparse microbiome studies. The observed library sizes were close to the nominal mean of 10,000 reads.
+
+The QC plotting script saves `outputs/library_size_qc.png` when executed. That image is generated locally and is not currently committed to this repository; the README therefore does not display it as an existing repository figure.
+
+These checks establish that the example ran and passed the implemented tests. They are **not** evidence of biological validity, statistical calibration, or performance of the four differential-abundance methods.
 
 ## Files
 
