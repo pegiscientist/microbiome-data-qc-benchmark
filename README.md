@@ -9,7 +9,7 @@ The example grew out of questions I explored during the **Microbiome Abundance C
 - **Input:** Entirely synthetic case/control microbiome counts (40 samples × 60 taxa), with no intentionally introduced group effect
 - **Checks:** Sample IDs and order, duplicate identifiers, count integrity, library-size agreement, and null ground-truth labels
 - **Outputs:** Reproducible CSV tables, console-based validation, QC statistics, and a sequencing-depth histogram
-- **Tests:** Five automated checks, including deliberately mismatched sample metadata and corrupted library-size information
+- **Tests:** Ten automated tests, including deliberately mismatched sample metadata, corrupted library-size information, and missing or invalid input fields
 
 ### Workflow
 
@@ -68,7 +68,7 @@ I ran the workflow in Google Colab with seed `42` and checked its console output
 | Mean library size | 10,020.1 reads |
 | Library-size range | 9,758–10,244 reads |
 
-The count-table, metadata, and null-truth integrity checks reported **PASS**. The test suite completed **5 tests with 0 failures**, including checks designed to detect mismatched sample order and deliberately corrupted library-size metadata.
+The count-table, metadata, and null-truth integrity checks reported **PASS**. The original verification run completed **5 tests with 0 failures**, including checks designed to detect mismatched sample order and deliberately corrupted library-size metadata. Five additional negative tests have since been added; their execution results are not included in this verification summary.
 
 The 17.8% zero fraction and 100% median taxon prevalence indicate that many taxa are present across samples. This controlled example is useful for practicing QC but should not be treated as a realistic representation of highly sparse microbiome studies. The observed library sizes were close to the nominal mean of 10,000 reads.
 
@@ -85,7 +85,7 @@ These checks establish that the example ran and passed the implemented tests. Th
 - `scripts/simulate_null.py`: synthetic data generation; no real patient or study data.
 - `scripts/validate_counts.py`: input integrity checks; exits with an error for failed checks.
 - `scripts/summarize_qc.py`: QC statistics and a library-size figure.
-- `tests/test_workflow.py`: basic positive and negative tests.
+- `tests/test_workflow.py`: positive and negative tests for reproducibility, alignment, missing fields, and invalid metadata.
 
 ## Scientific decisions and limitations
 
