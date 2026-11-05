@@ -1,10 +1,8 @@
 # Microbiome Data Simulation and Quality Control
 
-**Before trusting an analysis, can we trust its input data?**
+This repository contains a small, reproducible Python demonstration of microbiome count-data simulation and pre-analysis quality control (QC). It checks the consistency of count tables, sample metadata, and expected labels before downstream analysis.
 
-This repository is a small, reproducible Python demonstration of microbiome count-data simulation and **pre-analysis quality control (QC)**. It focuses on a practical scientific problem: checking that count tables, sample metadata, and expected labels agree before interpreting downstream results.
-
-It grew out of questions I explored during the **Microbiome Abundance Consensus Machine** group capstone.
+The example grew out of questions I explored during the **Microbiome Abundance Consensus Machine** group capstone.
 
 ### At a glance
 
@@ -27,9 +25,9 @@ Run automated positive and negative tests
 
 > **Scope:** This is a standalone educational QC example, **not** a benchmark of differential-abundance methods. It does not reproduce the full team's results.
 
-## Why QC comes first
+## Purpose of the checks
 
-A script can execute without error even when its input files are misaligned or inconsistent. Explicit checks help identify these problems before statistical testing. Passing these checks establishes **input integrity for the conditions tested**, not biological realism or validity of downstream scientific conclusions.
+The validation steps identify mismatches or inconsistencies in the generated input files before statistical testing. Passing these checks establishes **input integrity for the conditions tested**, not biological realism or validity of downstream scientific conclusions.
 
 In the broader team project, Python supported simulation, preparation, and organization of analysis files. R provided the packages used for ALDEx2, ANCOM-BC2, and DESeq2; CLR/Wilcoxon was also evaluated. **This portfolio example does not implement those four differential-abundance tests or reproduce the team's published/unpublished results.** It focuses on the validation work that precedes statistical testing.
 
