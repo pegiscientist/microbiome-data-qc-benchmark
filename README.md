@@ -68,7 +68,7 @@ I ran the workflow in Google Colab with seed `42` and checked its console output
 | Mean library size | 10,020.1 reads |
 | Library-size range | 9,758–10,244 reads |
 
-The count-table, metadata, and null-truth integrity checks reported **PASS**. The original verification run completed **5 tests with 0 failures**, including checks designed to detect mismatched sample order and deliberately corrupted library-size metadata. Five additional negative tests have since been added; their execution results are not included in this verification summary.
+The count-table, metadata, and null-truth integrity checks reported **PASS**. The expanded test suite was executed in Google Colab and completed **10 tests with 0 failures** (0.092 seconds, as reported by `unittest`). The tests include cases designed to detect mismatched sample order, corrupted library-size metadata, missing required columns, missing group labels, and non-numeric or missing library-size values.
 
 The 17.8% zero fraction and 100% median taxon prevalence indicate that many taxa are present across samples. This controlled example is useful for practicing QC but should not be treated as a realistic representation of highly sparse microbiome studies. The observed library sizes were close to the nominal mean of 10,000 reads.
 
