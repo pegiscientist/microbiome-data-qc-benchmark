@@ -1,6 +1,33 @@
-# Microbiome simulation and quality-control demo
+# Microbiome Data Simulation and Quality Control
 
-This is a small, standalone Python demonstration of microbiome count-data simulation and quality checks. It grew out of questions I explored during the **Microbiome Abundance Consensus Machine** group capstone: before comparing statistical methods, how can we tell whether our input data and metadata are consistent?
+This repository contains a small, reproducible Python demonstration of microbiome count-data simulation and pre-analysis quality control (QC). It checks the consistency of count tables, sample metadata, and expected labels before downstream analysis.
+
+The example grew out of questions I explored during the **Microbiome Abundance Consensus Machine** group capstone.
+
+### At a glance
+
+- **Input:** Entirely synthetic case/control microbiome counts (40 samples × 60 taxa), with no intentionally introduced group effect
+- **Checks:** Sample IDs and order, duplicate identifiers, count integrity, library-size agreement, and null ground-truth labels
+- **Outputs:** Reproducible CSV tables, console-based validation, QC statistics, and a sequencing-depth histogram
+- **Tests:** Ten automated tests, including deliberately mismatched sample metadata, corrupted library-size information, and missing or invalid input fields
+
+### Workflow
+
+```text
+Simulate synthetic count data and metadata
+                 ↓
+Check sample alignment and data integrity
+                 ↓
+Summarize library sizes, zero counts, and prevalence
+                 ↓
+Run automated positive and negative tests
+```
+
+> **Scope:** This is a standalone educational QC example, **not** a benchmark of differential-abundance methods. It does not reproduce the full team's results.
+
+## Purpose of the checks
+
+The validation steps identify mismatches or inconsistencies in the generated input files before statistical testing. Passing these checks establishes **input integrity for the conditions tested**, not biological realism or validity of downstream scientific conclusions.
 
 In the broader team project, Python supported simulation, preparation, and organization of analysis files. R provided the packages used for ALDEx2, ANCOM-BC2, and DESeq2; CLR/Wilcoxon was also evaluated. **This portfolio example does not implement those four differential-abundance tests or reproduce the team's published/unpublished results.** It focuses on the validation work that precedes statistical testing.
 
@@ -28,7 +55,7 @@ python -m unittest discover -s tests -v
 
 The commands write three generated CSVs and a QC PNG to `outputs/`, which is git-ignored. The results are reproducible for the specified seed and dependency versions, but exact random outputs can vary across NumPy versions.
 
-## Results from a verification run
+## Example verification results
 
 I ran the workflow in Google Colab with seed `42` and checked its console output. The simulation, validation, and QC summary completed successfully.
 
@@ -41,7 +68,7 @@ I ran the workflow in Google Colab with seed `42` and checked its console output
 | Mean library size | 10,020.1 reads |
 | Library-size range | 9,758–10,244 reads |
 
-The count-table, metadata, and null-truth integrity checks reported **PASS**. The test suite completed **5 tests with 0 failures**, including checks designed to detect mismatched sample order and deliberately corrupted library-size metadata.
+The count-table, metadata, and null-truth integrity checks reported **PASS**. The expanded test suite was executed in Google Colab and completed **10 tests with 0 failures** (0.092 seconds, as reported by `unittest`). The tests include cases designed to detect mismatched sample order, corrupted library-size metadata, missing required columns, missing group labels, and non-numeric or missing library-size values.
 
 The 17.8% zero fraction and 100% median taxon prevalence indicate that many taxa are present across samples. This controlled example is useful for practicing QC but should not be treated as a realistic representation of highly sparse microbiome studies. The observed library sizes were close to the nominal mean of 10,000 reads.
 
@@ -58,7 +85,7 @@ These checks establish that the example ran and passed the implemented tests. Th
 - `scripts/simulate_null.py`: synthetic data generation; no real patient or study data.
 - `scripts/validate_counts.py`: input integrity checks; exits with an error for failed checks.
 - `scripts/summarize_qc.py`: QC statistics and a library-size figure.
-- `tests/test_workflow.py`: basic positive and negative tests.
+- `tests/test_workflow.py`: positive and negative tests for reproducibility, alignment, missing fields, and invalid metadata.
 
 ## Scientific decisions and limitations
 
@@ -66,10 +93,10 @@ This example uses a shared baseline composition with sample-level Dirichlet vari
 
 The main lesson I wanted to capture from this part of the capstone is simple: code that runs is not necessarily evidence that its inputs are correct. Data alignment and explicit QC are worth checking before interpreting results.
 
-## Relationship to the group project
+## Relationship to the capstone group project
 
 This is a **separate educational portfolio example**, newly organized with synthetic data. It is not a copy of the original group repository and contains no real-data arm, complete consensus analysis, or original team results. Credit for the wider capstone concept belongs to the BIOT670I project team. Please consult the original project and collaborators for any future research use of shared material.
 
 ## Acknowledgment
 
-This portfolio package was prepared with AI assistance and is intended for personal review and verification before public release.
+AI-assisted programming was used in preparing this educational portfolio example. The scientific decisions, scope, results, and limitations are documented here for review; users should independently validate the workflow for their own applications.

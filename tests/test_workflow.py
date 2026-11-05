@@ -32,6 +32,35 @@ class TestWorkflow(unittest.TestCase):
         self.assertTrue(any("library sizes" in p for p in
                             validate(self.counts, broken, self.truth)))
 
+    def test_missing_metadata_column_reports_problem(self):
+        broken = self.metadata.drop(columns=["LibrarySize"])
+        problems = validate(self.counts, broken, self.truth)
+        self.assertTrue(any("Missing metadata columns" in p for p in problems))
+
+    def test_missing_library_size_reports_problem(self):
+        broken = self.metadata.copy()
+        broken.loc[0, "LibrarySize"] = float("nan")
+        problems = validate(self.counts, broken, self.truth)
+        self.assertTrue(any("finite positive" in p for p in problems))
+
+    def test_non_numeric_library_size_reports_problem(self):
+        broken = self.metadata.copy()
+        broken["LibrarySize"] = broken["LibrarySize"].astype(object)
+        broken.loc[0, "LibrarySize"] = "unknown"
+        problems = validate(self.counts, broken, self.truth)
+        self.assertTrue(any("finite positive" in p for p in problems))
+
+    def test_missing_truth_column_reports_problem(self):
+        broken = self.truth.drop(columns=["True_DA"])
+        problems = validate(self.counts, self.metadata, broken)
+        self.assertTrue(any("Missing truth columns" in p for p in problems))
+
+    def test_missing_group_label_reports_problem(self):
+        broken = self.metadata.copy()
+        broken.loc[0, "Group"] = None
+        problems = validate(self.counts, broken, self.truth)
+        self.assertTrue(any("missing labels" in p for p in problems))
+
 
 if __name__ == "__main__":
     unittest.main()
